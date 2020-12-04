@@ -4,10 +4,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  equipment.sortTemps();
-  equipment.humidResult();
-  equipment.carbonMonoxideResult();
-  res.render('index', { title: 'Express' });
+  let thermometers = equipment.sortTemps();
+  let humidity = equipment.humidResult();
+  let carbonMonoxide = equipment.carbonMonoxideResult();
+  res.render('index', { title: 'Express', thermometers, humidity, carbonMonoxide });
 });
 
 module.exports = router;
