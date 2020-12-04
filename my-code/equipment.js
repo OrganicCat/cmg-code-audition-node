@@ -33,17 +33,18 @@ const dataObject = {
     },
     {
         name: "therm2",
-        temps: [72.4, 76.0, 79.1, 75.6, 71.2, 71.4, 69.2, 65.2, 62.8, 61.4, 64.0, 67.5, 69.4]
+        temps: [70, 69, 70]
     },
     {
         name: "therm3",
-        temps: [72.4, 76.0, 79.1, 75.6, 71.2, 71.4, 69.2, 65.2, 62.8, 61.4, 64.0, 67.5, 69.4]
+        temps: [74, 74, 73, 70]
     }
     ],
 
 }
 
-const sortTemps = (dataObject) => {
+// assume input here of dataObject
+const sortTemps = () => {
     const therms = dataObject.therms;
     const thermResult = [];
 
@@ -55,7 +56,7 @@ const sortTemps = (dataObject) => {
             const absDiff = Math.abs(tempRef - therm.temps[thermIndex]);
             if (absDiff > 5) {
                 thermType = "precise";
-            } else if (absDiff <= 5 || absDiff >= 3) {
+            } else if (absDiff <= 5 && absDiff >= 3) {
                 thermType = "very precise";
             }
             thermIndex++;
@@ -64,8 +65,7 @@ const sortTemps = (dataObject) => {
         thermResult.push([`${therm.name} ${thermType}`]);
     });
 
-    console.log("test");
     console.log(thermResult);
 }
 
-module.export = sortTemps;
+exports.sortTemps = sortTemps;
