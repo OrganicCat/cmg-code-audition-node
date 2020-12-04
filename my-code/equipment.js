@@ -40,7 +40,19 @@ const dataObject = {
         temps: [74, 74, 73, 70]
     }
     ],
-
+    humidSensors: [{
+        name: "humid1",
+        humidity: [45.2, 45.33, 45.1, 45.1]
+    },
+    {
+        name: "humid2",
+        humidity: [45.1, 45.2, 44.1, 46.1]
+    },
+    {
+        name: "humid3",
+        humidity: [-1.2, 5, 404]
+    }
+    ]
 }
 
 // assume input here of dataObject
@@ -66,6 +78,36 @@ const sortTemps = () => {
     });
 
     console.log(thermResult);
+    return thermResult;
+}
+
+const humidResult = () => {
+    const sensors = dataObject.humidSensors;
+    const humidResults = [];
+
+    sensors.forEach((sensor) => {
+        let humidType = "keep";
+        let humidIndex = 0;
+
+        while (humidType !== "discard" && humidIndex < sensor.humidity.length) {
+            const absDiff = Math.abs(humidityRef - sensor.humidity[humidIndex]);
+            if (absDiff > 1) {
+                humidType = "discard";
+            }
+            humidIndex++;
+        }
+
+        humidResults.push([`${sensor.name} ${humidType}`]);
+    });
+
+    console.log(humidResults);
+    return humidResults;
+}
+
+const carbonMonoxideResult = () => {
+
 }
 
 exports.sortTemps = sortTemps;
+exports.humidResult = humidResult;
+exports.carbonMonoxideResult = carbonMonoxideResult;
