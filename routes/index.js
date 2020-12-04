@@ -6,6 +6,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   equipment.sortTemps();
   equipment.humidResult();
+  equipment.carbonMonoxideResult();
   res.render('index', { title: 'Express' });
 });
 

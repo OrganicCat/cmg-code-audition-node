@@ -52,6 +52,19 @@ const dataObject = {
         name: "humid3",
         humidity: [-1.2, 5, 404]
     }
+    ],
+    carbonMonoxideSensors: [{
+        name: "mon-1",
+        carbondMonValues: [3, 5, 4, 3, 3]
+    },
+    {
+        name: "mon-2",
+        carbondMonValues: [1, 3, 10, 4, 6]
+    },
+    {
+        name: "mon-3",
+        carbondMonValues: [5, 6, 5, 6]
+    }
     ]
 }
 
@@ -104,8 +117,29 @@ const humidResult = () => {
     return humidResults;
 }
 
+// This COULD be combined with the above function, HOWEVER it would introduce instability later if you added more types of requirements
+// or values to compare against like thermometers have. Better to keep separate
 const carbonMonoxideResult = () => {
+    const carbonMonoxideSensors = dataObject.carbonMonoxideSensors;
+    const carbondMonxideResults = [];
 
+    carbonMonoxideSensors.forEach((carbonMonoxideSensor) => {
+        let sensorType = "keep";
+        let sensorIndex = 0;
+
+        while (sensorType !== "discard" && sensorIndex < carbonMonoxideSensor.carbondMonValues.length) {
+            const absDiff = Math.abs(carbonMonoxideRef - carbonMonoxideSensor.carbondMonValues[sensorIndex]);
+            if (absDiff > 3) {
+                sensorType = "discard";
+            }
+            sensorIndex++;
+        }
+
+        carbondMonxideResults.push([`${carbonMonoxideSensor.name} ${sensorType}`]);
+    });
+
+    console.log(carbondMonxideResults);
+    return carbondMonxideResults;
 }
 
 exports.sortTemps = sortTemps;
