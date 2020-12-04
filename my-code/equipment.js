@@ -39,7 +39,8 @@ const dataObject = {
         name: "therm3",
         temps: [72.4, 76.0, 79.1, 75.6, 71.2, 71.4, 69.2, 65.2, 62.8, 61.4, 64.0, 67.5, 69.4]
     }
-    ]
+    ],
+
 }
 
 const sortTemps = (dataObject) => {
@@ -50,16 +51,21 @@ const sortTemps = (dataObject) => {
         let thermType = "ultra precise";
         let thermIndex = 0;
 
-        while(thermType !== "precise" && thermIndex < therm.temps.length) {
+        while (thermType !== "precise" && thermIndex < therm.temps.length) {
             const absDiff = Math.abs(tempRef - therm.temps[thermIndex]);
             if (absDiff > 5) {
                 thermType = "precise";
-            } else if (absDiff <=5 || absDiff >= 3) {
+            } else if (absDiff <= 5 || absDiff >= 3) {
                 thermType = "very precise";
             }
             thermIndex++;
         }
 
-        
-    })
+        thermResult.push([`${therm.name} ${thermType}`]);
+    });
+
+    console.log("test");
+    console.log(thermResult);
 }
+
+module.export = sortTemps;
