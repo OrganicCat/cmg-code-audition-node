@@ -13,7 +13,7 @@ const readInterface = readline.createInterface({
   console: false
 });
 
-const bindData = (dataObject, line) => {
+const bindData = (dataObject, currentSensor, line) => {
   const lineData = line.split(" ");
   switch (lineData[0]) {
     case 'reference':
@@ -26,6 +26,7 @@ const bindData = (dataObject, line) => {
     case 'thermometer':
       // If we assume each thermometer name is unique we can do this, otherwise, we gotta create unique names
       dataObject.therms[lineData[1]] = [];
+      
       //currentSensor = 
       break;
     case 'humidity':
@@ -34,6 +35,7 @@ const bindData = (dataObject, line) => {
       break;
     default:
       dataObject[currentSensor].push(lineData[1]);
+      // Stopped right here at Pencil's Down
   }
 }
 
@@ -41,6 +43,7 @@ router.get('/', function(req, res, next) {
   const dataObject = {};
   const currentSensor = "none";
   readInterface.on('line', function(line) {
+    //bindData(dataObject, currentSensor, line);
     console.log(line);
   });
 
