@@ -49,6 +49,8 @@ dataObject.therms['temps'].push(sensorValue.split(" ")[1]);
 */
 
 
+
+
 const tempRef = 70.0;
 const humidityRef = 45.0;
 const carbonMonoxideRef = 6;
